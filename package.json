@@ -1,0 +1,44 @@
+{
+  "name": "hiiits",
+  "version": "0.0.0",
+  "description": "hits counter",
+  "main": "index.start.js",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "start": "node index.start.js",
+    "build": "webpack --env production",
+    "dev": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flamrdevs/hiiits.git"
+  },
+  "author": "flamrdevs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/flamrdevs/hiiits/issues"
+  },
+  "homepage": "https://github.com/flamrdevs/hiiits#readme",
+  "dependencies": {
+    "@fastify/cors": "^8.2.0",
+    "@fastify/helmet": "^10.1.0",
+    "@fastify/sensible": "^5.2.0",
+    "deta": "^1.1.0",
+    "fastify": "^4.10.2",
+    "uniqid": "^5.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.11",
+    "@types/uniqid": "^5.3.2",
+    "nodemon-webpack-plugin": "^4.8.1",
+    "rimraf": "^3.0.2",
+    "ts-loader": "^9.4.2",
+    "tsconfig-paths-webpack-plugin": "^4.0.0",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-node-externals": "^3.0.0"
+  }
+}
