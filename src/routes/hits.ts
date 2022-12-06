@@ -32,7 +32,7 @@ const HitsRoutes = async (fastify: FastifyInstance) => {
 
     reply.header("Content-Type", "image/svg+xml");
     reply.header("Age", "0");
-    reply.header("Cache-Control", "no-cache, no-store, must-revalidate");
+    reply.header("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
     return line;
   });
 };
