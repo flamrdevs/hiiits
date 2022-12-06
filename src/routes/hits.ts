@@ -31,6 +31,7 @@ const HitsRoutes = async (fastify: FastifyInstance) => {
     await HitBase.put({ u, r, t: Date.now() });
 
     reply.header("Content-Type", "image/svg+xml");
+    reply.header("Age", "0");
     reply.header("Cache-Control", "no-cache, no-store, must-revalidate");
     return line;
   });
