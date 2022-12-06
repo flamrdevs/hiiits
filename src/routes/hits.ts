@@ -25,14 +25,13 @@ const HitsRoutes = async (fastify: FastifyInstance) => {
   }>("/:u/:r", async (request, reply) => {
     const { u, r } = request.params;
 
-    if (typeof u !== "string" || u == null || u == "") throw reply.badRequest("Require u");
-    if (typeof r !== "string" || r == null || r == "") throw reply.badRequest("Require r");
+    if (typeof u !== "string" || u == null || u == "") throw reply.badRequest("Require u (username)");
+    if (typeof r !== "string" || r == null || r == "") throw reply.badRequest("Require r (repository)");
 
     await HitBase.put({ u, r, t: Date.now() });
 
     reply.header("Content-Type", "image/svg+xml");
-    reply.header("Age", "0");
-    reply.header("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
+    reply.header("Cache-Control", "no-cache, no-store, must-revalidate");
     return line;
   });
 };
