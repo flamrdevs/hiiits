@@ -1,23 +1,26 @@
 import type { FastifyInstance } from "fastify";
 
 import { HitBase } from "~/deta";
+import type { IHit } from "~/deta";
 
-const line = `<svg width="100%" height="10" xmlns="http://www.w3.org/2000/svg"><g><line stroke-linecap="undefined" stroke-width="2" stroke-linejoin="undefined" id="svg_3" y2="5" x2="100%" y1="5" x1="0" stroke="#777" fill="none"/></g></svg>`;
+function sortLatestFn(a: IHit, b: IHit) {
+  return a.t < b.t ? 1 : -1;
+}
 
 const HitsRoutes = async (fastify: FastifyInstance) => {
   fastify.get("/", async () => {
-    const data = await HitBase.fetch();
-    return data.items;
+    const { items } = await HitBase.fetch();
+    return items.sort(sortLatestFn);
   });
 
   fastify.get<{
     Params: { u?: string };
   }>("/:u", async (request, reply) => {
     const { u } = request.params;
-    if (typeof u !== "string" || u == null || u == "") throw reply.badRequest("Require u");
+    if (typeof u !== "string" || u == null || u == "") throw reply.badRequest("Require u (username)");
 
-    const data = await HitBase.fetch({ u });
-    return data.items;
+    const { items } = await HitBase.fetch({ u });
+    return items.sort(sortLatestFn);
   });
 
   fastify.get<{
@@ -28,12 +31,8 @@ const HitsRoutes = async (fastify: FastifyInstance) => {
     if (typeof u !== "string" || u == null || u == "") throw reply.badRequest("Require u (username)");
     if (typeof r !== "string" || r == null || r == "") throw reply.badRequest("Require r (repository)");
 
-    await HitBase.put({ u, r, t: Date.now() });
-
-    reply.header("Content-Type", "image/svg+xml");
-    reply.header("Age", "0");
-    reply.header("Cache-Control", "max-age=0, no-cache, no-store, must-revalidate");
-    return line;
+    const { items } = await HitBase.fetch({ u, r });
+    return items.sort(sortLatestFn);
   });
 };
 

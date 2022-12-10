@@ -1,6 +1,6 @@
 import { createDeta } from "./generic";
 
-const { createBase } = createDeta("c0kbpgjf_GM8xD1dUHTAjrQehczGj2Ws59KHWp2yv");
+const { createBase } = createDeta(process.env.PROJECT_KEY);
 
 type IHit = {
   key: string;

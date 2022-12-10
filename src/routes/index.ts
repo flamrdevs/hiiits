@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 
+import HitRoutes from "./hit";
 import HitsRoutes from "./hits";
 
 const RootRoutes = async (fastify: FastifyInstance) => {
@@ -15,6 +16,7 @@ const RootRoutes = async (fastify: FastifyInstance) => {
     };
   });
 
+  fastify.register(HitRoutes, { prefix: "/hit" });
   fastify.register(HitsRoutes, { prefix: "/hits" });
 
   fastify.get("/*", async (_request, reply) => {
